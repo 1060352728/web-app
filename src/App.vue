@@ -10,6 +10,8 @@ export default {
   name: 'App',
   mounted() {
     console.log(this.$store.state.count)
+    this.$store.commit("updateCount",10);
+    console.log(this.$store.state.count)
   }
 }
 </script>
