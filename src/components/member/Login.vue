@@ -11,8 +11,7 @@
       </div>
       <div>
         <button v-on:click="login">登　录</button>
-        <button v-on:click="testtoken">测试</button>
-        <button v-on:click="logout">退出</button>
+        <button v-on:click="regist">注　册</button>
       </div>
     </div>
   </div>
@@ -77,8 +76,8 @@ export default {
         }
       });
     },
-    logout: function () {
-      this.$store.commit("del_token")
+    regist: function () {
+      this.$router.push({path: '/register'});
     }
   }
 }

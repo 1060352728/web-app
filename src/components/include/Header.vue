@@ -1,6 +1,7 @@
 <template>
   <div>
-    <span>你好{{username}}，欢迎使用网上商城购物系统</span>
+    <span>你好</span><span class="namecolor">{{username}}</span><span>，欢迎使用网上商城购物系统</span>
+    <span class="logout"><a v-on:click="logout">退出</a></span>
   </div>
 </template>
 
@@ -11,10 +12,18 @@
         return {
           username: this.$store.state.username ? this.$store.state.username : ""
         }
+      },
+      methods: {
+        logout: function () {
+          this.$store.commit("del_token");
+          this.$store.commit("del_username");
+          this.$router.push({path: '/'});
+        }
       }
     }
 </script>
 
 <style scoped>
-
+  .namecolor{color: red}
+  .logout{color: blue}
 </style>
