@@ -20,9 +20,6 @@
 
 <script>
 
-import axios from 'axios'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
 export default {
   name: 'Login',
   data () {
@@ -36,7 +33,7 @@ export default {
   methods: {
     login: function () {
       if(this.validate()){
-        axios({
+        this.$axios({
           method: 'post',
           url: this.HOST+'/uaa/oauth/token',
           headers: {
@@ -68,13 +65,9 @@ export default {
       return true;
     },
     testtoken: function () {
-      console.log(this.$store.state.access_token);
-      axios({
+      this.$axios({
         method: 'post',
-        url: this.HOST+'/uaa/user',
-        headers: {
-          "Authorization": "Bearer " + this.$store.state.access_token
-        },
+        url: this.HOST+'/uaa/user'
       }).then(result=>{
         if(result){
           console.log(result)

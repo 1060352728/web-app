@@ -4,10 +4,23 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/store'
+import axios from 'axios'
 
-Vue.prototype.HOST='/api'
+Vue.prototype.$axios = axios
+Vue.prototype.HOST = '/api'
 Vue.config.productionTip = false
 
+axios.interceptors.request.use(
+  config => {
+    config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    if(localStorage.getItem("access_token")){
+      config.headers.Authorization = "Bearer " + localStorage.getItem("access_token")
+    }
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  });
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -16,4 +29,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 });
-
