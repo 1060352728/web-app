@@ -6,11 +6,16 @@ Vue.use(Vuex)
 export default () => {
   return new Vuex.Store({
     state: {
-      count: 0
+      access_token: localStorage.getItem("access_token") ? localStorage.getItem("access_token") : ""
     },
     mutations: {
-      updateCount (state, num){
-        state.count= num
+      set_token (state, token){
+        state.access_token = token
+        localStorage.setItem("access_token", token)
+      },
+      del_token (state){
+        state.access_token = ""
+        localStorage.removeItem("access_token")
       }
     }
   })

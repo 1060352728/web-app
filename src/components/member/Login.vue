@@ -11,13 +11,17 @@
       </div>
       <div>
         <button v-on:click="login">登　录</button>
+        <button v-on:click="testtoken">测试</button>
+        <button v-on:click="logout">退出</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
+
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 export default {
   name: 'Login',
@@ -32,10 +36,9 @@ export default {
   methods: {
     login: function () {
       if(this.validate()){
-
         axios({
           method: 'post',
-          url: '/api/oauth/token',
+          url: this.HOST+'/uaa/oauth/token',
           headers: {
             Authorization: 'Basic b2F1dGg6b2F1dGg='
           },
@@ -45,7 +48,9 @@ export default {
             grant_type: "password"
           }
         }).then(result=>{
-          console.log(result.status);
+          if(result.data.access_token){
+            this.$store.commit("set_token",result.data.access_token)
+          }
         });
       }
     },
@@ -61,6 +66,23 @@ export default {
       }
       this.errormsgpwd = "";
       return true;
+    },
+    testtoken: function () {
+      console.log(this.$store.state.access_token);
+      axios({
+        method: 'post',
+        url: this.HOST+'/uaa/user',
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.access_token
+        },
+      }).then(result=>{
+        if(result){
+          console.log(result)
+        }
+      });
+    },
+    logout: function () {
+      this.$store.commit("del_token")
     }
   }
 }

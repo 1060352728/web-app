@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store/store'
 
+Vue.prototype.HOST='/api'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -14,4 +15,5 @@ new Vue({
   store,
   components: { App },
   template: '<App/>'
-})
+});
+
