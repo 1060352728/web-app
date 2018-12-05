@@ -4,7 +4,7 @@ import Login from '@/components/member/Login'
 import Home from '@/components/home/Home'
 import Register from "@/components/member/Register";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [

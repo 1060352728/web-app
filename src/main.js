@@ -6,9 +6,9 @@ import router from './router'
 import store from './store/store'
 import axios from 'axios'
 
-Vue.prototype.$axios = axios
-Vue.prototype.HOST = '/api'
-Vue.config.productionTip = false
+Vue.prototype.$axios = axios;
+Vue.prototype.HOST = '/api';
+Vue.config.productionTip = false;
 
 axios.interceptors.request.use(
   config => {
