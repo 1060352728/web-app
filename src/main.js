@@ -13,8 +13,12 @@ Vue.config.productionTip = false
 axios.interceptors.request.use(
   config => {
     config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    if(localStorage.getItem("access_token")){
-      config.headers.Authorization = "Bearer " + localStorage.getItem("access_token")
+    if(config.url.indexOf("/uaa/oauth/token") != -1){
+      config.headers.Authorization = 'Basic b2F1dGg6b2F1dGg='
+    }else{
+      if(localStorage.getItem("access_token")){
+        config.headers.Authorization = "Bearer " + localStorage.getItem("access_token")
+      }
     }
     return config;
   },
