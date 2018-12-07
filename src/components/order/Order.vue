@@ -6,7 +6,22 @@
 
 <script>
     export default {
-        name: "Order"
+      name: "Order",
+      data () {
+        return {
+          orderList: ""
+        }
+      },
+      methods: {
+        getOrderList: function () {
+          this.$axios({
+            method: 'post',
+            url: this.HOST+'/api-omc/order/list'
+          }).then(result=>{
+
+          })
+        }
+      }
     }
 </script>
 

@@ -33,17 +33,17 @@ export default {
     login: function () {
       if(this.validate()){
         this.$axios({
-          method: 'post',
-          url: this.HOST+'/uaa/oauth/token',
-          headers: {
-            Authorization: 'Basic b2F1dGg6b2F1dGg='
-          },
-          params:{
-            username: this.username,
-            password: this.password,
-            grant_type: "password"
-          }
-        }).then(result=>{
+            method: 'post',
+            url: this.HOST+'/uaa/oauth/token',
+            headers: {
+              Authorization: 'Basic b2F1dGg6b2F1dGg='
+            },
+            params:{
+              username: this.username,
+              password: this.password,
+              grant_type: "password"
+            }
+          }).then(result=>{
             console.log(result);
           if(result.data.access_token){
             this.$store.commit("set_token",result.data.access_token);
