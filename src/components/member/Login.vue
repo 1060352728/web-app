@@ -44,8 +44,8 @@ export default {
             grant_type: "password"
           }
         }).then(result=>{
-          if(result.data.access_token){
             console.log(result);
+          if(result.data.access_token){
             this.$store.commit("set_token",result.data.access_token);
             this.$store.commit("set_username",this.username);
             this.$router.replace({path: '/home'});
