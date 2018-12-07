@@ -1,7 +1,11 @@
 <template>
   <div>
     <Header></Header>
-    <div>index</div>
+    <div>
+      <router-link to="/product">产品列表</router-link>
+      <router-link to="/order">订单列表</router-link>
+      <router-view/>
+    </div>
     <Footer></Footer>
   </div>
 </template>
