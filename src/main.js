@@ -2,8 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import store from './store/store'
+import router from './router'
 import axios from 'axios'
 
 Vue.prototype.$axios = axios;
@@ -25,6 +25,46 @@ axios.interceptors.request.use(
   err => {
     return Promise.reject(err);
   });
+
+
+axios.interceptors.response.use((res) => {
+  if (res.data.code === 200) {
+    if (res.data) {
+      console.log(res.data);
+      return res.data;
+    }
+  } else {
+    alert(res.data.message);
+    return Promise.reject(res);
+  }
+}, (error) => {
+  if (error.response) {
+    console.error('error: ', error.response);
+    if (error.response.status === 500) {
+      alert(error.response.data.message);
+    } else if (error.response.status === 401) {
+      alert('您无访问权限');
+    } else {
+      console.log('Error', error.message);
+      alert('接口请求失败或超时！请刷新重试');
+    }
+  } else {
+    alert('接口请求失败或超时！请刷新重试');
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (localStorage.getItem("access_token")) {
+      next()
+    }else {
+      next({ path: '/login' })
+    }
+  }else {
+    next()
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

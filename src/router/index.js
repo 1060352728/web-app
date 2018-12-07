@@ -25,6 +25,7 @@ export default new Router({
     {
       path: '/home',
       meta: {
+        name: "跳转主页",
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
       name: 'Home',

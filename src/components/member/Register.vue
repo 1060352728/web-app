@@ -12,12 +12,37 @@
       data() {
         return {
           username: "",
-          password: ""
+          password: "",
+          errormsgname: "",
+          errormsgpwd: ""
         }
       },
       methods: {
         registers: function () {
+          if(this.validate()){
+            this.$axios({
+              method: 'post',
+              url: this.HOST+'/api-uac/user/register',
+              params:{
+                username: this.username,
+                password: this.password,
+              }
+            });
+          }
           this.$router.push({path: '/login'});
+        },
+        validate: function () {
+          if(!this.username){
+            this.errormsgname = "请输入用户名";
+            return false;
+          }
+          this.errormsgname = "";
+          if(!this.password){
+            this.errormsgpwd = "请输入密码";
+            return false;
+          }
+          this.errormsgpwd = "";
+          return true;
         }
       }
     }
