@@ -28,13 +28,10 @@ axios.interceptors.request.use(
 
 
 axios.interceptors.response.use((res) => {
-  if (res.data.code === 200) {
-    if (res.data) {
-      console.log(res.data);
-      return res.data;
-    }
+  if (res.status === 200) {
+    return res;
   } else {
-    alert(res.data.message);
+    alert(res.statusText);
     return Promise.reject(res);
   }
 }, (error) => {
