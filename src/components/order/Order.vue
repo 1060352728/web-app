@@ -3,6 +3,7 @@
     <table>
       <thead>
         <tr>
+          <th>序号</th>
           <th>地址</th>
           <th>会员名称</th>
           <th>手机号</th>
@@ -12,7 +13,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in orderList">
+        <tr v-for="(item,index) in orderList">
+          <td>{{index + 1}}</td>
           <td>{{item.buyerAddress}}</td>
           <td>{{item.buyerName}}</td>
           <td>{{item.buyerPhone}}</td>
@@ -45,6 +47,7 @@
           method: 'get',
           url: this.HOST+'/api-omc/order/list'
         }).then(result=>{
+          console.log(result.data);
           this.orderList = result.data.data
         })
       },
@@ -55,7 +58,7 @@
             url: this.HOST+'/api-omc/order/finish',
             params: {"orderId":orderId}
           }).then(result=>{
-            if(result.data.data.code==200){
+            if(result.data.code===0){
               this.reload()
             }
           })
@@ -63,7 +66,7 @@
       },
       filters: {
         capitalize: function (value) {
-          return value == 0 ? "未完结" : "已完结";
+          return value === 0 ? "未完结" : "已完结";
         }
       }
     }
