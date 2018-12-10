@@ -33,6 +33,7 @@
 <script>
     export default {
       name: "Order",
+      inject: ["reload"],
       data () {
         return {
           orderList: ""
@@ -55,7 +56,7 @@
             params: {"orderId":orderId}
           }).then(result=>{
             if(result.data.data.code==200){
-
+              this.reload()
             }
           })
         }
