@@ -36,18 +36,19 @@ axios.interceptors.response.use((res) => {
   }
 }, (error) => {
   if (error.response) {
-    console.error('error: ', error.response);
     if (error.response.status === 500) {
       alert(error.response.data.message);
     } else if (error.response.status === 401) {
       alert('您无访问权限');
+    }else if (error.response.status === 403) {
+      alert('您无访问权限');
     } else {
-      console.log('Error', error.message);
       alert('接口请求失败或超时！请刷新重试');
     }
   } else {
     alert('接口请求失败或超时！请刷新重试');
   }
+  return error.response;
 });
 
 router.beforeEach((to, from, next) => {
