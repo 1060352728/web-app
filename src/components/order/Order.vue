@@ -20,11 +20,10 @@
           <td>{{item.buyerPhone}}</td>
           <td>{{item.orderAmount}}</td>
           <td>{{item.orderStatus|capitalize}}</td>
-          <td v-if="item.orderStatus === 0">
-            <a class="finishing" v-on:click="finishOrder(item.orderId)">完结订单</a>
-          </td>
-          <td v-else>
-            <a class="finished">完结订单</a>
+          <td >
+            <router-link :to="{path: '/orderdetail',query:{orderId:item.orderId}}">查看详情</router-link>
+            <a v-if="item.orderStatus === 0" class="finishing" v-on:click="finishOrder(item.orderId)">完结订单</a>
+            <a v-else class="finished">完结订单</a>
           </td>
         </tr>
       </tbody>
@@ -47,7 +46,6 @@
           method: 'get',
           url: this.HOST+'/api-omc/order/list'
         }).then(result=>{
-          console.log(result.data);
           this.orderList = result.data.data
         })
       },

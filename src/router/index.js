@@ -5,6 +5,7 @@ import Home from '@/components/home/Home'
 import Register from "@/components/member/Register"
 import Product from "@/components/product/Product"
 import Order from "@/components/order/Order"
+import Detail from "@/components/order/Detail"
 
 Vue.use(Router);
 
@@ -28,7 +29,7 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
-      redirect:'/order',
+      // redirect:'/order',
       meta: {
         name: "跳转主页",
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
@@ -43,6 +44,11 @@ export default new Router({
           path: '/order',
           name: 'Order',
           component: Order
+        },
+        {
+          path: '/orderdetail',
+          name: 'Detail',
+          component: Detail
         }
       ]
     }
