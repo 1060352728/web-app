@@ -48,6 +48,12 @@
 <script>
     export default {
       name: "Detail",
+      data() {
+        return {
+          orderId: this.$route.query.orderId,
+          orderDetails: ""
+        };
+      },
       created () {
         this.$axios({
           method: 'get',
@@ -59,12 +65,6 @@
             this.orderDetails = result.data.data
           }
         })
-      },
-      data() {
-        return {
-          orderId: this.$route.query.orderId,
-          orderDetails: ""
-        };
       }
     }
 </script>

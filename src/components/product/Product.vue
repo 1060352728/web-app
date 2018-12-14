@@ -6,7 +6,24 @@
 
 <script>
     export default {
-        name: "product"
+      name: "product",
+      data () {
+        return {
+
+        }
+      },
+      created () {
+        this.$axios({
+          method: 'get',
+          url: this.HOST+'/api-psc/order/findbyid',
+          params: {"orderId":this.orderId}
+        }).then(result=>{
+          console.log(result)
+          if(result.data.code===0){
+            this.orderDetails = result.data.data
+          }
+        })
+      }
     }
 </script>
 
