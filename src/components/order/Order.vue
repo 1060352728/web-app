@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>序号</th>
@@ -73,4 +73,5 @@
 <style scoped>
   .finishing{color: blue}
   .finished{color: red}
+  .table{margin: auto}
 </style>
