@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>买家姓名</th>
@@ -24,7 +24,7 @@
         </tr>
       </tbody>
     </table>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>产品名称</th>
@@ -70,5 +70,5 @@
 </script>
 
 <style scoped>
-
+  .table{margin: auto}
 </style>
