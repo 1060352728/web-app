@@ -90,7 +90,7 @@
         },
         creatOrder: function () {
           this.addresserror = "";
-          if(this.address==""){
+          if(this.address===""){
             this.addresserror = "请填写地址";
             return false;
           }
