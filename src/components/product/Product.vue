@@ -24,7 +24,8 @@
         </tr>
       </tbody>
     </table>
-    <div><span class="address">请输入地址：</span><input type="text" v-model="address"><span class="address" v-if="addresserror">{{addresserror}}</span></div>
+    <div><span class="address">请输入地址：</span><input type="text" v-model="orderMsg.address"><span class="address" v-if="addresserror">{{addresserror}}</span></div>
+    <div><span class="address">请输入手机号：</span><input type="text" v-model="orderMsg.phone"><span class="address" v-if="phoneerror">{{phoneerror}}</span></div>
     <div><button v-on:click="creatOrder">下单</button></div>
   </div>
 </template>
@@ -39,8 +40,9 @@
           productIds: [],
           checked: false,
           checkedList: [],
-          address: "",
           addresserror: "",
+          phoneerror: "",
+          item: {},
           orderMsg: {
             "name":"", "phone":"", "address":"", "openid":"","items":[]
           }
@@ -89,9 +91,15 @@
           }
         },
         creatOrder: function () {
+          this.orderMsg.items = [];
           this.addresserror = "";
-          if(this.address===""){
+          this.phoneerror = "";
+          if(this.orderMsg.address === ""){
             this.addresserror = "请填写地址";
+            return false;
+          }
+          if(this.orderMsg.phone === ""){
+            this.phoneerror = "请填写手机号";
             return false;
           }
           this.$axios({
@@ -101,10 +109,30 @@
               username: "seller"
             }
           }).then(result=>{
-            console.log(result.data)
             this.orderMsg.name = result.data.username;
             this.orderMsg.openid = result.data.openid
-          })
+          });
+
+          this.checkedList.forEach(item=>{
+            this.item = {};
+            this.item[item] = this.productno[item];
+            this.orderMsg.items.push(this.item);
+          });
+
+          this.$axios({
+            method: 'post',
+            url: this.HOST+'/api-omc/order/creat',
+            data: this.$qs.stringify({
+              name: this.orderMsg.name,
+              phone: this.orderMsg.phone,
+              address: this.orderMsg.address,
+              openid: this.orderMsg.openid,
+              items: JSON.stringify(this.orderMsg.items)
+            })
+          }).then(result=>{
+            alert(result.data.msg)
+          });
+
         }
       }
     }
