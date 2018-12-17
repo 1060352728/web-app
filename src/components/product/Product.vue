@@ -42,7 +42,7 @@
           checkedList: [],
           addresserror: "",
           phoneerror: "",
-          item: {},
+          item: {"productId":"","productQuantity":""},
           orderMsg: {
             "name":"", "phone":"", "address":"", "openid":"","items":[]
           }
@@ -110,29 +110,27 @@
             }
           }).then(result=>{
             this.orderMsg.name = result.data.username;
-            this.orderMsg.openid = result.data.openid
+            this.orderMsg.openid = result.data.openid;
+            this.checkedList.forEach(items=>{
+              this.item = {};
+              this.item.productId = items;
+              this.item.productQuantity = this.productno[items];
+              this.orderMsg.items.push(this.item);
+            });
+            this.$axios({
+              method: 'post',
+              url: this.HOST+'/api-omc/order/creat',
+              data: this.$qs.stringify({
+                name: this.orderMsg.name,
+                phone: this.orderMsg.phone,
+                address: this.orderMsg.address,
+                openid: this.orderMsg.openid,
+                items: JSON.stringify(this.orderMsg.items)
+              })
+            }).then(result=>{
+              alert(result.data.msg)
+            });
           });
-
-          this.checkedList.forEach(item=>{
-            this.item = {};
-            this.item[item] = this.productno[item];
-            this.orderMsg.items.push(this.item);
-          });
-
-          this.$axios({
-            method: 'post',
-            url: this.HOST+'/api-omc/order/creat',
-            data: this.$qs.stringify({
-              name: this.orderMsg.name,
-              phone: this.orderMsg.phone,
-              address: this.orderMsg.address,
-              openid: this.orderMsg.openid,
-              items: JSON.stringify(this.orderMsg.items)
-            })
-          }).then(result=>{
-            alert(result.data.msg)
-          });
-
         }
       }
     }
