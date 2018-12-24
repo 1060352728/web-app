@@ -15,9 +15,19 @@
       },
       methods: {
         logout: function () {
-          this.$store.commit("del_token");
-          this.$store.commit("del_username");
-          this.$router.push({path: '/'});
+          this.$axios({
+            method: 'delete',
+            url: this.HOST+'/uaa/oauth/token',
+            headers: {
+              Authorization: 'Basic b2F1dGg6b2F1dGg='
+            },
+            data: {"access_token":localStorage.getItem("access_token")}
+          }).then(result=>{
+            console.log(result);
+            this.$store.commit("del_token");
+            this.$store.commit("del_username");
+            this.$router.push({path: '/'});
+          });
         }
       }
     }
