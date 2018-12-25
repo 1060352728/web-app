@@ -34,7 +34,7 @@ export default {
       if(this.validate()){
         this.$axios({
             method: 'post',
-            url: this.HOST+'/uaa/oauth/token',
+            url: 'http://127.0.0.1:8088/uaa/oauth/token',
             headers: {
               Authorization: 'Basic b2F1dGg6b2F1dGg='
             },
@@ -68,7 +68,7 @@ export default {
     testtoken: function () {
       this.$axios({
         method: 'post',
-        url: this.HOST+'/uaa/user'
+        url: 'http://127.0.0.1:8088/uaa/user'
       }).then(result=>{
         if(result){
           console.log(result)

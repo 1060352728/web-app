@@ -57,7 +57,7 @@
       created () {
         this.$axios({
           method: 'get',
-          url: this.HOST+'/api-omc/order/findbyid',
+          url: 'http://127.0.0.1:8088/api-omc/order/findbyid',
           params: {"orderId":this.orderId}
         }).then(result=>{
           console.log(result)
