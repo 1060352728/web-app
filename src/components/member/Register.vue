@@ -22,7 +22,7 @@
           if(this.validate()){
             this.$axios({
               method: 'post',
-              url: 'http://127.0.0.1:8088/api-uac/user/register',
+              url: this.HOST+'/api-uac/user/register',
               params:{
                 username: this.username,
                 password: this.password,

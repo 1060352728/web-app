@@ -44,7 +44,7 @@
         console.log("订单列表初始化。。。。。");
         this.$axios({
           method: 'get',
-          url: 'http://127.0.0.1:8088/api-omc/order/list'
+          url: this.HOST+'/api-omc/order/list'
         }).then(result=>{
           this.orderList = result.data.data
         })
@@ -53,7 +53,7 @@
         finishOrder: function (orderId) {
           this.$axios({
             method: 'post',
-            url: 'http://127.0.0.1:8088/api-omc/order/finish',
+            url: this.HOST+'/api-omc/order/finish',
             params: {"orderId":orderId}
           }).then(result=>{
             if(result.data.code===0){

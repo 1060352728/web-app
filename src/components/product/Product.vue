@@ -51,7 +51,7 @@
       created () {
         this.$axios({
           method: 'get',
-          url: this.HOST+'/api-psc/product/list',
+          url: this.HOST+'/api-psc/product/list'
         }).then(result=>{
           if(result.data.code===0){
             this.product = result.data;

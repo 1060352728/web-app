@@ -17,10 +17,7 @@
         logout: function () {
           this.$axios({
             method: 'delete',
-            url: 'http://127.0.0.1:8088/uaa/oauth/token',
-            headers: {
-              Authorization: 'Basic b2F1dGg6b2F1dGg='
-            },
+            url: this.HOST+'/uaa/oauth/token',
             data: {"access_token":localStorage.getItem("access_token")}
           }).then(result=>{
             console.log(result);

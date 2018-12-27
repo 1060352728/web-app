@@ -34,16 +34,14 @@ export default {
       if(this.validate()){
         this.$axios({
             method: 'post',
-            url: 'http://127.0.0.1:8088/uaa/oauth/token',
-            headers: {
-              Authorization: 'Basic b2F1dGg6b2F1dGg='
-            },
+            url: this.HOST+'/uaa/oauth/token',
             params:{
               username: this.username,
               password: this.password,
               grant_type: "password"
             }
           }).then(result=>{
+            console.log(result.data.access_token);
           if(result.data.access_token){
             this.$store.commit("set_token",result.data.access_token);
             this.$store.commit("set_username",this.username);
@@ -68,7 +66,7 @@ export default {
     testtoken: function () {
       this.$axios({
         method: 'post',
-        url: 'http://127.0.0.1:8088/uaa/user'
+        url: this.HOST+'/uaa/user'
       }).then(result=>{
         if(result){
           console.log(result)
