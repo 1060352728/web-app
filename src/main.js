@@ -12,9 +12,10 @@ Vue.prototype.$axios = axios;
 Vue.prototype.HOST = '/api';
 Vue.config.productionTip = false;
 
+axios.defaults.withCredentials = true;
 axios.interceptors.request.use(
   config => {
-    config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    config.headers.contentType = 'application/x-www-form-urlencoded';
     if(config.url.indexOf("/uaa/oauth/token") != -1){
       config.headers.Authorization = 'Basic b2F1dGg6b2F1dGg='
     }else{
