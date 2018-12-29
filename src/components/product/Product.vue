@@ -51,7 +51,7 @@
       created () {
         this.$axios({
           method: 'get',
-          url: this.HOST+'/api-psc/product/list'
+          url: 'http://127.0.0.1:8088/api-psc/product/list'
         }).then(result=>{
           if(result.data.code===0){
             this.product = result.data;
@@ -104,9 +104,9 @@
           }
           this.$axios({
             method: 'post',
-            url: this.HOST+'/api-uac/user/findbyusername',
+            url: 'http://127.0.0.1:8088/api-uac/user/findbyusername',
             params:{
-              username: "seller"
+              username: this.$store.state.username
             }
           }).then(result=>{
             this.orderMsg.name = result.data.username;
@@ -119,7 +119,7 @@
             });
             this.$axios({
               method: 'post',
-              url: this.HOST+'/api-omc/order/creat',
+              url: 'http://127.0.0.1:8088/api-omc/order/creat',
               data: this.$qs.stringify({
                 name: this.orderMsg.name,
                 phone: this.orderMsg.phone,

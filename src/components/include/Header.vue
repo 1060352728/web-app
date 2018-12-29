@@ -17,7 +17,7 @@
         logout: function () {
           this.$axios({
             method: 'delete',
-            url: this.HOST+'/uaa/oauth/token',
+            url: 'http://127.0.0.1:8088/uaa/oauth/token',
             data: {"access_token":localStorage.getItem("access_token")}
           }).then(result=>{
             console.log(result);
