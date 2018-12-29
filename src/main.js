@@ -49,7 +49,7 @@ axios.interceptors.response.use((res) => {
       alert('接口请求失败或超时！请刷新重试');
     }
   } else {
-    alert('接口请求失败或超时！请刷新重试');
+    alert('您无访问权限');
   }
   return error.response;
 });
