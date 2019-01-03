@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     login: function () {
+      this.$store.commit("set_login_time",new Date().getTime());
       if(this.validate()){
         this.$axios({
             method: 'post',
@@ -45,8 +46,11 @@ export default {
           }).then(result=>{
           if(result.data.access_token){
             this.$store.commit("set_token",result.data.access_token);
+            this.$store.commit("set_refresh_token",result.data.refresh_token);
+            this.$store.commit("set_expires_in",result.data.expires_in);
             this.$store.commit("set_username",this.username);
-            this.$router.replace({path: '/home'});
+            this.$store.commit("set_password",this.password);
+            this.$router.replace({path: '/home'});//返回不了
           }else{
             this.errormsg = "用户名或密码错误";
           }

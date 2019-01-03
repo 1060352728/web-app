@@ -19,6 +19,28 @@ axios.interceptors.request.use(
     if(config.url.indexOf("/uaa/oauth/token") != -1){
       config.headers.Authorization = 'Basic b2F1dGg6b2F1dGg='
     }else{
+      //判断access_token是否过期
+      if((new Date().getTime() - localStorage.getItem("login_time")) / 1000 - localStorage.getItem("expires_in") >= 0){
+        //需要刷新token
+        axios({
+          method: 'post',
+          url: 'http://127.0.0.1:8088/uaa/oauth/token',
+          params:{
+            username: localStorage.getItem("username"),
+            password: localStorage.getItem("password"),
+            grant_type: "refresh_token",
+            refresh_token: localStorage.getItem("refresh_token")
+          }
+        }).then(result=>{
+          if(result.data.access_token){
+            localStorage.setItem("access_token",result.data.access_token);
+            localStorage.setItem("refresh_token",result.data.refresh_token);
+            localStorage.setItem("expires_in",result.data.expires_in);
+          }else{
+            router.replace({path: '/'});//返回不了
+          }
+        })
+      }
       if(localStorage.getItem("access_token")){
         config.headers.Authorization = "Bearer " + localStorage.getItem("access_token")
       }
