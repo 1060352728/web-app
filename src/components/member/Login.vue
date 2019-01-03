@@ -2,13 +2,14 @@
   <div>
     <div>
       <div>
-        <span>用户名：</span><input type="text" v-model="username">
+        <span>用户名：</span><input type="text" v-model="username" v-on:click="removeError">
         <p><span class="errormsg" v-if="errormsgname">{{errormsgname}}</span></p>
       </div>
       <div>
-        <span>密　码：</span><input type="text" v-model="password">
+        <span>密　码：</span><input type="text" v-model="password" v-on:click="removeError">
         <p><span class="errormsg" v-if="errormsgpwd">{{errormsgpwd}}</span></p>
       </div>
+        <p><span class="errormsg" v-if="errormsg">{{errormsg}}</span></p>
       <div>
         <button v-on:click="login">登　录</button>
         <button v-on:click="regist">注　册</button>
@@ -26,7 +27,8 @@ export default {
       username: "",
       password: "",
       errormsgname: "",
-      errormsgpwd: ""
+      errormsgpwd: "",
+      errormsg: ""
     }
   },
   methods: {
@@ -41,16 +43,18 @@ export default {
               grant_type: "password"
             }
           }).then(result=>{
-            console.log(result);
           if(result.data.access_token){
             this.$store.commit("set_token",result.data.access_token);
             this.$store.commit("set_username",this.username);
             this.$router.replace({path: '/home'});
+          }else{
+            this.errormsg = "用户名或密码错误";
           }
         });
       }
     },
     validate: function () {
+      this.errormsg = "";
       if(!this.username){
         this.errormsgname = "请输入用户名";
         return false;
@@ -75,6 +79,11 @@ export default {
     },
     regist: function () {
       this.$router.push({path: '/register'});
+    },
+    removeError: function () {
+      this.errormsg = "";
+      this.errormsgname = "";
+      this.errormsgpwd = "";
     }
   }
 }
