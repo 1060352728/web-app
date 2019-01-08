@@ -51,8 +51,10 @@ export default {
             this.$store.commit("set_username",this.username);
             this.$store.commit("set_password",this.password);
             this.$router.replace({path: '/home'});//返回不了
-          }else{
-            this.errormsg = "用户名或密码错误";
+          }else if(result.data == 401){
+            this.errormsg = "用户名不存在";
+          }else {
+            this.errormsg = "密码错误";
           }
         });
       }
